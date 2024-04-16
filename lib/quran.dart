@@ -4,6 +4,8 @@ import 'package:quran/translations/en_saheeh.dart';
 import 'package:quran/translations/tr_saheeh.dart';
 import 'package:quran/translations/ml_abdulhameed.dart';
 import 'package:quran/translations/fr_hamidullah.dart';
+import 'package:quran/translations/id_mui.dart';
+import 'package:quran/translations/ms_basmeih.dart';
 
 import 'juz_data.dart';
 import 'page_data.dart';
@@ -315,12 +317,13 @@ List<String> getVersesTextByPage(int pageNumber,
 }
 
 ///Takes [surahNumber] and returns audio URL of that surah
-String getAudioURLBySurah(int surahNumber) {
-  return "https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/$surahNumber.mp3";
+String getAudioURLBySurah(int surahNumber, {String edition = "ar.alafasy"}) {
+  return "https://cdn.islamic.network/quran/audio-surah/128/$edition/$surahNumber.mp3";
 }
 
 ///Takes [surahNumber] & [verseNumber] and returns audio URL of that verse
-String getAudioURLByVerse(int surahNumber, int verseNumber) {
+String getAudioURLByVerse(int surahNumber, int verseNumber,
+    {String edition = "ar.alafasy"}) {
   int verseNum = 0;
   for (var i in quranText) {
     if (i['surah_number'] == surahNumber && i['verse_number'] == verseNumber) {
@@ -328,7 +331,7 @@ String getAudioURLByVerse(int surahNumber, int verseNumber) {
       break;
     }
   }
-  return "https://cdn.islamic.network/quran/audio/128/ar.alafasy/$verseNum.mp3";
+  return "https://cdn.islamic.network/quran/audio/128/$edition/$verseNum.mp3";
 }
 
 ///Takes [surahNumber] & [verseNumber] and returns true if verse is sajdah
@@ -340,7 +343,14 @@ String getAudioURLByVerseNumber(int verseNumber) {
   return "https://cdn.islamic.network/quran/audio/128/ar.alafasy/$verseNumber.mp3";
 }
 
-enum Translation { enSaheeh, trSaheeh, mlAbdulHameed, frHamidullah }
+enum Translation {
+  enSaheeh,
+  trSaheeh,
+  mlAbdulHameed,
+  frHamidullah,
+  idMUI,
+  msBasmeih,
+}
 
 ///Takes [surahNumber], [verseNumber], [verseEndSymbol] (optional) & [translation] (optional) and returns verse translation
 String getVerseTranslation(int surahNumber, int verseNumber,
@@ -362,6 +372,12 @@ String getVerseTranslation(int surahNumber, int verseNumber,
       break;
     case Translation.frHamidullah:
       translationText = frHamidullah;
+      break;
+    case Translation.idMUI:
+      translationText = idMUI;
+      break;
+    case Translation.msBasmeih:
+      translationText = msBasmeih;
       break;
     default:
       translationText = enSaheeh;
