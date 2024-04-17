@@ -4,7 +4,7 @@ import 'package:quran/translations/en_saheeh.dart';
 import 'package:quran/translations/tr_saheeh.dart';
 import 'package:quran/translations/ml_abdulhameed.dart';
 import 'package:quran/translations/fr_hamidullah.dart';
-import 'package:quran/translations/id_mui.dart';
+import 'package:quran/translations/id_kemenag.dart';
 import 'package:quran/translations/ms_basmeih.dart';
 import 'package:quran/translations/bn_khan.dart';
 import 'package:quran/translations/ur_jalandhry.dart';
@@ -395,7 +395,7 @@ enum Translation {
   trSaheeh,
   mlAbdulHameed,
   frHamidullah,
-  idMUI,
+  idKemenag,
   msBasmeih,
   bnKhan,
   urJalandhry,
@@ -422,8 +422,8 @@ String getVerseTranslation(int surahNumber, int verseNumber,
     case Translation.frHamidullah:
       translationText = frHamidullah;
       break;
-    case Translation.idMUI:
-      translationText = idMUI;
+    case Translation.idKemenag:
+      translationText = idKemenag;
       break;
     case Translation.msBasmeih:
       translationText = msBasmeih;
@@ -473,8 +473,8 @@ Map searchWordsInTranslation(List<String> words,
     case Translation.frHamidullah:
       translationText = frHamidullah;
       break;
-    case Translation.idMUI:
-      translationText = idMUI;
+    case Translation.idKemenag:
+      translationText = idKemenag;
       break;
     case Translation.msBasmeih:
       translationText = msBasmeih;
