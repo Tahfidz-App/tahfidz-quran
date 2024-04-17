@@ -6,6 +6,8 @@ import 'package:quran/translations/ml_abdulhameed.dart';
 import 'package:quran/translations/fr_hamidullah.dart';
 import 'package:quran/translations/id_mui.dart';
 import 'package:quran/translations/ms_basmeih.dart';
+import 'package:quran/translations/bn_khan.dart';
+import 'package:quran/translations/ur_jalandhry.dart';
 
 import 'juz_data.dart';
 import 'page_data.dart';
@@ -147,6 +149,38 @@ String getSurahNameFrench(int surahNumber) {
   return surah[surahNumber - 1]['french'].toString();
 }
 
+///Takes [surahNumber] returns the Surah name in Indonesian
+String getSurahNameIndonesian(int surahNumber) {
+  if (surahNumber > 114 || surahNumber <= 0) {
+    throw "No Surah found with given surahNumber";
+  }
+  return surah[surahNumber - 1]['indonesian'].toString();
+}
+
+///Takes [surahNumber] returns the Surah name in Malay
+String getSurahNameMalay(int surahNumber) {
+  if (surahNumber > 114 || surahNumber <= 0) {
+    throw "No Surah found with given surahNumber";
+  }
+  return surah[surahNumber - 1]['malay'].toString();
+}
+
+///Takes [surahNumber] returns the Surah name in Urdu
+String getSurahNameUrdu(int surahNumber) {
+  if (surahNumber > 114 || surahNumber <= 0) {
+    throw "No Surah found with given surahNumber";
+  }
+  return surah[surahNumber - 1]['urdu'].toString();
+}
+
+///Takes [surahNumber] returns the Surah name in Bengali
+String getSurahNameBengali(int surahNumber) {
+  if (surahNumber > 114 || surahNumber <= 0) {
+    throw "No Surah found with given surahNumber";
+  }
+  return surah[surahNumber - 1]['bengali'].toString();
+}
+
 ///Takes [surahNumber] returns the Surah name in Arabic
 String getSurahNameArabic(int surahNumber) {
   if (surahNumber > 114 || surahNumber <= 0) {
@@ -281,6 +315,10 @@ enum SurahSeperator {
   surahNameEnglish,
   surahNameTurkish,
   surahNameFrench,
+  surahNameIndonesian,
+  surahNameMalay,
+  surahNameUrdu,
+  surahNameBengali,
 }
 
 ///Takes [pageNumber], [verseEndSymbol], [surahSeperator] & [customSurahSeperator] and returns the list of verses in that page
@@ -308,6 +346,14 @@ List<String> getVersesTextByPage(int pageNumber,
       verses.add(getSurahNameTurkish(data["surah"]));
     } else if (surahSeperator == SurahSeperator.surahNameFrench) {
       verses.add(getSurahNameFrench(data["surah"]));
+    } else if (surahSeperator == SurahSeperator.surahNameIndonesian) {
+      verses.add(getSurahNameIndonesian(data["surah"]));
+    } else if (surahSeperator == SurahSeperator.surahNameMalay) {
+      verses.add(getSurahNameMalay(data["surah"]));
+    } else if (surahSeperator == SurahSeperator.surahNameUrdu) {
+      verses.add(getSurahNameUrdu(data["surah"]));
+    } else if (surahSeperator == SurahSeperator.surahNameBengali) {
+      verses.add(getSurahNameBengali(data["surah"]));
     }
     for (int j = data["start"]; j <= data["end"]; j++) {
       verses.add(getVerse(data["surah"], j, verseEndSymbol: verseEndSymbol));
@@ -339,8 +385,9 @@ bool isSajdahVerse(int surahNumber, int verseNumber) =>
     sajdahVerses[surahNumber] == verseNumber;
 
 ///Takes [verseNumber] and returns audio URL of that verse
-String getAudioURLByVerseNumber(int verseNumber) {
-  return "https://cdn.islamic.network/quran/audio/128/ar.alafasy/$verseNumber.mp3";
+String getAudioURLByVerseNumber(int verseNumber,
+    {String edition = "ar.alafasy"}) {
+  return "https://cdn.islamic.network/quran/audio/128/$edition/$verseNumber.mp3";
 }
 
 enum Translation {
@@ -350,6 +397,8 @@ enum Translation {
   frHamidullah,
   idMUI,
   msBasmeih,
+  bnKhan,
+  urJalandhry,
 }
 
 ///Takes [surahNumber], [verseNumber], [verseEndSymbol] (optional) & [translation] (optional) and returns verse translation
@@ -378,6 +427,12 @@ String getVerseTranslation(int surahNumber, int verseNumber,
       break;
     case Translation.msBasmeih:
       translationText = msBasmeih;
+      break;
+    case Translation.bnKhan:
+      translationText = bnKhan;
+      break;
+    case Translation.urJalandhry:
+      translationText = urJalandhry;
       break;
     default:
       translationText = enSaheeh;
@@ -417,6 +472,18 @@ Map searchWordsInTranslation(List<String> words,
       break;
     case Translation.frHamidullah:
       translationText = frHamidullah;
+      break;
+    case Translation.idMUI:
+      translationText = idMUI;
+      break;
+    case Translation.msBasmeih:
+      translationText = msBasmeih;
+      break;
+    case Translation.bnKhan:
+      translationText = bnKhan;
+      break;
+    case Translation.urJalandhry:
+      translationText = urJalandhry;
       break;
     default:
       translationText = enSaheeh;
